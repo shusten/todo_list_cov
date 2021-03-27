@@ -1,0 +1,98 @@
+<div class="row justify-content-md-center mt-3">
+  <div
+    class="card card text-white col-sm-4"
+    style="background-color: rgba(0, 0, 0, 0.486)"
+  >
+    <form [formGroup]="form">
+      <div class="mb-3 col col-lg">
+        <label for="titulo" class="form-label text-white">
+          <b>Título da tarefa</b>
+        </label>
+        <input
+          type="txt"
+          class="form-control"
+          id="titulo"
+          placeholder="Exemplo: fazer café."
+          formControlName="title"
+          [ngClass]="{ 'is-invalid': submitted && hasError('title') }"
+          />
+          <div
+          class="invalid-feedback"
+          *ngIf="hasError('title') && hasError('title')['required']"
+        >
+          <b>O campo titulo é obrigatório.</b>
+        </div>
+  
+        <div
+          class="invalid-feedback"
+          *ngIf="hasError('title') && hasError('title')['minlength']"
+        >
+          <b>
+            A titulo deve ter um número mínimo de
+            {{ hasError("title")["minlength"].requiredLength }} caracteres
+          </b>
+        </div>
+      
+        <div
+          class="invalid-feedback"
+          *ngIf="hasError('title') && hasError('title')['maxlength']"
+        >
+          <b>
+            O titulo deve ter um número máximo de
+            {{ hasError("title")["maxlength"].requiredLength }} caracteres
+          </b>
+        </div>
+
+      </div>
+      <div class="mb-3 col col-lg">
+        <label for="descricao" class="form-label text-white">
+          <b>Descrição da tarefa</b>
+        </label>
+        <textarea
+          class="form-control"
+          id="descricao"
+          rows="3"
+          formControlName="description"
+          [ngClass]="{ 'is-invalid': submitted && hasError('description') }"
+        ></textarea>
+        <div
+        class="invalid-feedback"
+        *ngIf="hasError('description') && hasError('description')['minlength']"
+      >
+        <b>
+          A descrição deve ter um número mínimo de
+          {{ hasError("description")["minlength"].requiredLength }} caracteres
+        </b>
+      </div>
+    
+      <div
+        class="invalid-feedback"
+        *ngIf="hasError('description') && hasError('description')['maxlength']"
+      >
+        <b>
+          A descrição deve ter um número máximo de
+          {{ hasError("description")["maxlength"].requiredLength }} caracteres
+        </b>
+      </div>
+
+      </div>
+
+      <div class="d-grid gap-2 d-md-flex justify-content-sm-end" style="padding-bottom: 10px;">
+        <button
+          type="submit"
+          class="btn btn-primary"
+          (click)="onSubmit()"
+        >
+          Salvar
+        </button>
+        <button
+          type="button"
+          class="btn btn-success"
+          (click)="onCancel()"
+        >
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

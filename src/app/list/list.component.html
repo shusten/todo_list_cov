@@ -1,0 +1,78 @@
+<!--
+<nav class="navbar navbar-light bg-light">
+  <a class="navbar-brand" href="#">TO DO LIST</a> 
+  <button class="btn btn-primary" (click)="addTask()">Adicionar Tarefa</button>
+</nav>
+-->
+<!--
+<div
+  class="card"
+  style="width: 18rem"
+  *ngFor="let task of taskList; let i = index"
+>
+  <div class="card-body">
+    <h5 class="card-title">Tarefa:</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Titulo:</h6>
+    <div class="form-group">
+      <input class="form-control" type="text" />
+    </div>
+    <h6 class="card-subtitle mb-2 text-muted">Descrição:</h6>
+    <div class="form-group">
+      <textarea class="form-control" rows="3"> textosdasdkçasldkaçsld</textarea>
+    </div>
+    <a href="#" class="card-link" (click)="removeTask(i)">excluir</a>
+  </div>
+</div>
+  -->
+
+<div
+  class="card card text-white mt-3"
+  style="background-color:  rgba(0, 0, 0, 0.486)"
+>
+  <div class="card-header">
+    <div class="float-left">
+      <h4 class="card-title">Tarefas</h4>
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-left: 5px;">
+      <button class="btn btn-primary" type="button" [routerLink]="['new']">Adicionar Tarefa</button>
+    </div>
+  </div>
+  <div class="card-body">
+    <table
+      class="table table-hover text-white"
+      *ngIf="tasks$ | async as tasks; else loadingError"
+    >
+      <thead>
+        <tr>
+          <th>Tarefa</th>
+          <th>Descrição</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let task of tasks">
+          <td style="color: white">{{ task.title }}</td>
+          <td style="color: white">{{ task.description }}</td>
+          <td>
+            <span class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-primary" (click)="onEdit(task.id)">Editar</button>
+              <button class="btn btn-success" (click)="onCloseTask(task)">Encerrar</button>
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #loadingError>
+      <div *ngIf="error$ | async; else loading">
+        <h4>Ocorreu um erro!</h4>
+      </div>
+      <ng-template #loading>
+        <div class="d-grid gap-2 d-md-flex justify-content-sm">
+          <div class="spinner-border text-light" role="status"></div>
+          <h4>Carregando...</h4>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
+</div>
