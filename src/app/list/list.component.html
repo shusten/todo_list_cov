@@ -31,9 +31,19 @@
 >
   <div class="card-header">
     <div class="float-left">
-      <h4 class="card-title">Tarefas</h4>
+       <h4 class="card-title">Tarefas</h4>
     </div>
-    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-left: 5px;">
+    <div class="col-md-9">
+      <input
+        type="text"
+        id="myInput"
+        class="form-control"
+        (keyup)='search($event.target.value)'
+        placeholder="Pesquisar tarefa"
+        />
+    </div>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end" style="padding-top: 5%;" >
+      
       <button class="btn btn-primary" type="button" [routerLink]="['new']">Adicionar Tarefa</button>
     </div>
   </div>
