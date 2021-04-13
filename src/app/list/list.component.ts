@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EMPTY, Observable, Subject } from 'rxjs';
+import { EMPTY, Observable, of, Subject } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, take, tap } from 'rxjs/operators';
 import { Task } from '../model/task';
 import { AlertModalService } from '../shared/alert-modal.service';
@@ -26,53 +26,16 @@ export class ListComponent implements OnInit {
   selectedTask: Task;
 
   //public taskList : Task [] =[];
-  taskData$: Observable<Task[]>;
-  tasks$: Observable<Task[]>;
   error$ = new Subject<boolean>();
-  queryField = new FormControl();
-  results$: Observable<Task[]>;
-  dataFilter$: Observable<Task[]>;
-  tasksData$: Observable<Task[]>;
-  data$: Observable<Task>;
+  title: any;
 
-  
+  tasks$: Observable<Task[]>;
+  searchValue: string;
+
 
   ngOnInit() {
-
-    this.tasks$ = this.service.list().pipe(
-      catchError(error => {
-        console.error(error);
-        this.error$.next(true);
-        return EMPTY;
-      })
-    )
- 
-    filtrar(this.tasks$) {
-      if(!this.tasks$) {
-         this.dataFilter$ = this.tasks$;
-      } else {
-        this.tasksData$ = this.tasks$.pipe(filter(x => 
-           x.CLIENTE.trim().toLowerCase().includes(value.trim().toLowerCase())
-        );)
-      }
-   }
- 
+    this.onRefresh();
   }
-
- 
-
-
-
-    /*
-    this.queryField.valueChanges
-      .pipe(
-        map(value => value.trim()),
-        debounceTime(200),
-        distinctUntilChanged(),
-        tap(value => console.log(value))
-      ).subscribe();
-  
-      */  
 
 
   onEdit(id) {
@@ -108,7 +71,8 @@ export class ListComponent implements OnInit {
         console.error(error);
         this.handleError();
         return EMPTY;
-      })
+      }),
+      take(1)
     ); 
     }
     
