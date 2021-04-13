@@ -17,7 +17,8 @@ export class TasksService {
     return this.http.get<Task[]>(this.API)
     .pipe(  
       delay(1000),
-      tap(console.log)
+      tap(console.log),
+      take(1)
     );
   }
 
