@@ -36,9 +36,8 @@
     <div class="col-md-9">
       <input
         type="text"
-        id="myInput"
         class="form-control"
-        (keyup)='search($event.target.value)'
+        [(ngModel)]="searchValue"
         placeholder="Pesquisar tarefa"
         />
     </div>
@@ -60,7 +59,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let task of tasks">
+        <tr *ngFor="let task of tasks | searchfilter:searchValue">
           <td style="color: white">{{ task.title }}</td>
           <td style="color: white">{{ task.description }}</td>
           <td>
